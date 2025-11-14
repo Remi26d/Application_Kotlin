@@ -1,5 +1,6 @@
 package com.example.application_kotlin.presentation.screens
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -85,6 +86,20 @@ fun DetailScreen(
                     )
                 }
 
+                // bouton 2e API : infos sur le pays
+                Button(
+                    onClick = {
+                        val encodedName = Uri.encode(name.ifBlank { code })
+                        navController.navigate("info/$encodedName")
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.tertiary
+                    )
+                ) {
+                    Text("Plus d'infos sur le pays")
+                }
+
+                // drapeau
                 Surface(
                     tonalElevation = 4.dp,
                     shape = MaterialTheme.shapes.large
@@ -102,6 +117,7 @@ fun DetailScreen(
                     )
                 }
 
+                // style + taille
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(12.dp)

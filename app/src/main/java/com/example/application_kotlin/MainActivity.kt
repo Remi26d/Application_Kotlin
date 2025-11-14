@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.application_kotlin.presentation.screens.CountryInfoScreen
 import com.example.application_kotlin.presentation.screens.DetailScreen
 import com.example.application_kotlin.presentation.screens.FavoritesScreen
 import com.example.application_kotlin.presentation.screens.HomeScreen
@@ -85,6 +86,22 @@ fun IHM(navController: NavHostController) {
         // Écran des favoris
         composable("favorites") {
             FavoritesScreen(navController = navController)
+        }
+
+        // Écran infos pays (2e API, ex: Wikipédia)
+        composable(
+            route = "info/{name}",
+            arguments = listOf(
+                navArgument("name") { type = NavType.StringType }
+            )
+        ) { backStack ->
+            val encodedName = backStack.arguments?.getString("name") ?: ""
+            val countryName = Uri.decode(encodedName)
+
+            CountryInfoScreen(
+                countryName = countryName,
+                navController = navController
+            )
         }
     }
 }
