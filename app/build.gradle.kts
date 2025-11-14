@@ -5,6 +5,7 @@ plugins {
 
     // Active KSP dans le module app
     id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -83,4 +84,6 @@ dependencies {
 
     // --- Coil (chargement des drapeaux CountryFlags) ---
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 }
