@@ -8,8 +8,8 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json   // <-- important
 
-// DTO venant de l'API RestCountries
 @Serializable
 data class CountryApiResponse(
     val cca2: String,
@@ -21,11 +21,15 @@ data class Name(
     val common: String
 )
 
-// Client Ktor
 object ApiClient {
+
+    private val jsonConfig = Json {
+        ignoreUnknownKeys = true       // <-- on ignore "official" et tous les champs en trop
+    }
+
     val client = HttpClient(CIO) {
         install(ContentNegotiation) {
-            json()
+            json(jsonConfig)
         }
     }
 
